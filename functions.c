@@ -45,6 +45,7 @@ Student * findStudent(List * list, char name[20]){
         return NULL;
     }
     Student * check = list->front;
+    if (strcmp(name,check->name)==0) return check;
     while(&check!=&(list->back)){
         if (strcmp(name,check->name)==0) return check;
         check = check->next;
@@ -71,6 +72,7 @@ void deleteStudent(List * list, char name[20]){
         printf("This student does not currently exist in the list!\n");
         return;
     } 
+    // Normal delete function
     delete->next->previous=delete->previous;
     delete->previous->next=delete->next;
     deleteStudentMemory(delete);
@@ -83,7 +85,13 @@ void displayStudents(List * list){
     if (list->front==NULL){
         printf("There are no students in the system!\n");
         return;
+    }   
+    Student * check = list->front;
+    printf("%s %d%%", check->name, check->grade);
+    while(&check!=&(list->back)){     
+        printf("%s %d%%", check->name, check->grade);
     }
+    return;
 }
 
 void clearStudents(List * list){
