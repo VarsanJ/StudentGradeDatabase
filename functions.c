@@ -59,16 +59,23 @@ void insertStudent(List * list, Student * insert){
         insert->previous=insert;
         list->front = insert;
         list->back = list->front;
+        printf("Inserted student %s as first element of list", insert->name);
         return;
     }
 }
 
-void deleteStudent(List * list){
-    // Edge case if the list does not exist 
-    if (list->front==NULL){
-        printf("There are no students in the system!\n");
+void deleteStudent(List * list, char name[20]){
+    Student * delete = findStudent(list,name);
+    // Edge case if the list does not exist or if the student does not exist
+    if (delete==NULL){
+        printf("This student does not currently exist in the list!\n");
         return;
-    }
+    } 
+    delete->next->previous=delete->previous;
+    delete->previous->next=delete->next;
+    deleteStudentMemory(delete);
+    printf("Student %s has been deleted\n", name);
+    return;
 }
 
 void displayStudents(List * list){
